@@ -589,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("load", function () {
       setTimeout(function () {
         loader.style.display = "none";
-        satuMomen.style.display = "block"; // Gunakan "block" bukan "inherit"
+        satuMomen.style.display = "inherit"; // Gunakan "block" bukan "inherit"
       }, 100);
     });
 
