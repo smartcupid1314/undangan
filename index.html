@@ -67,30 +67,27 @@
     
     <!-- css -->
     <link rel="stylesheet" href="animate.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css" />
-
-    <link rel="preload" as="style" href="bootstrap-vCaDZZbr.css" /><link rel="preload" as="style" href="themesv2-DZZF_N8v.css" /><link rel="stylesheet" href="bootstrap-vCaDZZbr.css" /><link rel="stylesheet" href="themesv2-DZZF_N8v.css" />
-        <style>
-        @import url('BrittanySignature.css');
-@import url('https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&family=DM+Serif+Display:ital@0;1&display=swap');
-
-:root {
-    --inv-bg: #E2DFDB;
-    --inv-base: #2E2E2E;
-    --inv-accent: #956625;
-    --inv-border: #F6F6F6;
-    --font-base: 'Arsenal', sans-serif;
-    --font-accent: 'DM Serif Display', serif;
-    --font-latin: 'Brittany Signature', cursive;
-    --menu-bg: #E2D0AA;
-    --menu-inactive: #AE7400;
-    --menu-active: #956625;
-    --btn-color: #ffffff;
-}
-    </style>
-    
-        
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap-vCaDZZbr.css">
+    <link rel="stylesheet" href="themesv2-DZZF_N8v.css">
+    <link rel="preload" as="style" href="bootstrap-vCaDZZbr.css" />
+    <link rel="preload" as="style" href="themesv2-DZZF_N8v.css" />
     <style>
+        @import url('BrittanySignature.css');
+        @import url('https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&family=DM+Serif+Display:ital@0;1&display=swap');
+        :root {
+            --inv-bg: #E2DFDB;
+            --inv-base: #2E2E2E;
+            --inv-accent: #956625;
+            --inv-border: #F6F6F6;
+            --font-base: 'Arsenal', sans-serif;
+            --font-accent: 'DM Serif Display', serif;
+            --font-latin: 'Brittany Signature', cursive;
+            --menu-bg: #E2D0AA;
+            --menu-inactive: #AE7400;
+            --menu-active: #956625;
+            --btn-color: #ffffff;
+        }   
         @import url('BrittanySignature.css');
         @import url('fonts.css');
         @import url('Heatwood.css');
@@ -113,12 +110,12 @@
         <!-- <main id="app"> -->
         <div id="modalOverlay" class="modal-backdrop fade" style="display: none;"></div>
         <!-- Loader -->
-        <div id="loader" class="loader-wrapper"><span class="loader"><span class="loader-inner"></span></span></div>
-                <!-- music -->
-                        <audio id="music" loop autoplay>
+            <div id="loader" class="loader-wrapper"><span class="loader"><span class="loader-inner"></span></span></div>
+        <!-- music -->
+            <audio id="music" loop autoplay>
             <source src="InstrumentalLaguJawa.mp3">
             </audio>
-                    <!-- end music -->
+        <!-- end music -->
                 <div id="workspace-container" class="position-fixed h-100 w-100" style="overflow: hidden">
             <div id="panZoom" class="position-fixed h-100 w-100" style="top: 0; right:0; bottom:0; left:0; transform-origin: 50% 50%;">
                 <div class="h-100 w-100 d-flex align-items-center justify-content-center">
@@ -863,10 +860,10 @@
                     <p>Browser yang kamu gunakan mungkin kurang kompatibel. Beberapa fungsi undangan ini mungkin tidak dapat berjalan dengan baik. Kami merekomendasikan Chrome. Klik tombol dibawah ini untuk mendownload.</p>
                     <div class="d-flex justify-content-center">
                         <a href="https://apps.apple.com/id/app/google-chrome/id535886823" class="btn p-1" target="_BLANK">
-                            <img src="/images/btn_app_store.png" alt="AppStore" height="40px">
+                            <img src="btn_app_store.png" alt="AppStore" height="40px">
                         </a>
                         <a href="https://play.google.com/store/apps/details?id=com.android.chrome&hl=in&gl=US" class="btn p-1" target="_BLANK">
-                            <img src="/images/btn_play_store.png" alt="PlayStore" height="40px">
+                            <img src="btn_play_store.png" alt="PlayStore" height="40px">
                         </a>
                     </div>
                 </div>
@@ -882,12 +879,8 @@
 
     <script src="theme-app.js?v=021125"></script>
     <script src="themesv2.js?v=021125"></script>
-    <script>
-        console.log("theme-app.js loaded");
-        console.log("themesv2.js loaded");
-    </script>
-
-    <script type="b0404dfbd393e6f12e656581-text/javascript">
+    <script> console.log("theme-app.js loaded");console.log("themesv2.js loaded");</script>
+    <script type="text/javascript">
         var notSupport = document.getElementById('notSupport');
         function checkBrowser() { 
             if(navigator.userAgent.indexOf("UCBrowser") != -1 || navigator.userAgent.indexOf("MiuiBrowser") != -1 || navigator.userAgent.indexOf("OppoBrowser") != -1) {
@@ -899,16 +892,21 @@
         }
         checkBrowser()
     </script>
-        <!-- end script -->
-    <script type="b0404dfbd393e6f12e656581-text/javascript">
-        
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          // pastikan fungsi tersedia
+          if (typeof openInvitation === "function") {
+            console.log("Memaksa buka undangan otomatis...");
+            openInvitation(); // langsung jalankan tanpa klik tombol
+          }
+        });
     </script>
-    <!-- <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="b0404dfbd393e6f12e656581-|49" defer></script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"bb94421b81454f668eb9cf5cf8e9f0cb","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script> -->
+        <!-- end script -->
 </body>
 
 
 </html>
+
 
 
 
