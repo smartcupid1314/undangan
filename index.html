@@ -899,12 +899,14 @@
           </div>
         </div>
 <!-- End New RSVP Modal -->
+            
 <!-- Guestbook Section -->
         <section id="guestbook" class="mt-5">
           <h3 class="text-center mb-3">Ucapan & Konfirmasi</h3>
           <div id="guestList" class="p-2"></div>
         </section>
 <!-- End Guestbook Section -->
+            
         <div id="waterMark" class="mt-5" style="display: none">
                 <div class="wm-music mt-3 text-center animate__animated animate__fadeInUp animate__slower animate__delay-1s" style="font-size: 60%">
             <div style="opacity: 0.5"><strong>Music:</strong></div>
@@ -978,6 +980,10 @@
 
     <!-- Start RSVP Script -->
         <script>
+     // ==== GANTI DENGAN URL SCRIPT GOOGLE KAMU ==== const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIOBg6ZDOqpC9hgMYa6ML6A0-I9gwMZcEV-X6kaIDmmBOOG4feC8rTRW9MvoIglTmX/exec";
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqCmgs3Yhi3GkWCZRwjkckLhYiMdC1kLMggRW0-BuQmIM1O_sBIzJ2Zazpe18Abfov/exec";
+      const WHATSAPP_OWNER = "6282245874883";
+      // ==============================================
     document.getElementById("rsvpForm").addEventListener("submit", async function(e){
       e.preventDefault();
     
@@ -988,23 +994,7 @@
         jumlah: form.jumlah.value,
         ucapan: form.ucapan.value
       };
-    
-      // ==== GANTI DENGAN URL SCRIPT GOOGLE KAMU ==== const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIOBg6ZDOqpC9hgMYa6ML6A0-I9gwMZcEV-X6kaIDmmBOOG4feC8rTRW9MvoIglTmX/exec";
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqCmgs3Yhi3GkWCZRwjkckLhYiMdC1kLMggRW0-BuQmIM1O_sBIzJ2Zazpe18Abfov/exec";
-      const WHATSAPP_OWNER = "6282245874883";
-      // ==============================================
-    
-        document.getElementById("rsvpForm").addEventListener("submit", async function(e){
-          e.preventDefault();
         
-          const form = e.target;
-          const data = {
-            nama: form.nama.value,
-            kehadiran: form.kehadiran.value,
-            jumlah: form.jumlah.value,
-            ucapan: form.ucapan.value
-          };
-    
       try {
         await fetch(SCRIPT_URL, {
           method: "POST",
@@ -1017,10 +1007,7 @@
         alert("Gagal mengirim RSVP. Coba lagi.");
       }
     });
-    </script>
-    <!-- End Script RSVP -->
-
-    <script>
+    // --- Load Guestbook ---
             async function loadGuestbook() {
               try {
             const res = await fetch(SCRIPT_URL); 
@@ -1051,13 +1038,14 @@
         
         // load otomatis saat halaman dibuka
         document.addEventListener("DOMContentLoaded", loadGuestbook);
-</script>
-
+    </script>
+    <!-- End Script RSVP -->
         <!-- end script -->
 </body>
 
 
 </html>
+
 
 
 
