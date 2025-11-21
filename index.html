@@ -899,14 +899,6 @@
           </div>
         </div>
 <!-- End New RSVP Modal -->
-            
-<!-- Guestbook Section -->
-        <section id="guestbook" class="mt-5">
-          <h3 class="text-center mb-3">Ucapan & Konfirmasi</h3>
-          <div id="guestList" class="p-2"></div>
-        </section>
-<!-- End Guestbook Section -->
-            
         <div id="waterMark" class="mt-5" style="display: none">
                 <div class="wm-music mt-3 text-center animate__animated animate__fadeInUp animate__slower animate__delay-1s" style="font-size: 60%">
             <div style="opacity: 0.5"><strong>Music:</strong></div>
@@ -982,7 +974,6 @@
         <script>
      // ==== GANTI DENGAN URL SCRIPT GOOGLE KAMU ==== const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIOBg6ZDOqpC9hgMYa6ML6A0-I9gwMZcEV-X6kaIDmmBOOG4feC8rTRW9MvoIglTmX/exec";
       const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqCmgs3Yhi3GkWCZRwjkckLhYiMdC1kLMggRW0-BuQmIM1O_sBIzJ2Zazpe18Abfov/exec";
-      const WHATSAPP_OWNER = "6282245874883";
       // ==============================================
     document.getElementById("rsvpForm").addEventListener("submit", async function(e){
       e.preventDefault();
@@ -1007,37 +998,6 @@
         alert("Gagal mengirim RSVP. Coba lagi.");
       }
     });
-    // --- Load Guestbook ---
-            async function loadGuestbook() {
-              try {
-            const res = await fetch(SCRIPT_URL); 
-            const rows = await res.json();
-        
-            const wrapper = document.getElementById("guestList");
-            wrapper.innerHTML = "";
-        
-            rows.slice(1).reverse().forEach(item => {
-              const el = document.createElement("div");
-              el.className = "p-3 mb-3 rounded shadow-sm";
-              el.style.background = "#fafafa";
-        
-              el.innerHTML = `
-                <div class="fw-bold">${item["Nama"]} 
-                  <span class="text-muted" style="font-size:12px;">(${item["Kehadiran"]})</span>
-                </div>
-                <div>Jumlah tamu: ${item["Jumlah Tamu"]}</div>
-                <div class="mt-1 fst-italic">${item["Ucapan"] || ""}</div>
-              `;
-        
-              wrapper.appendChild(el);
-            });
-          } catch (err) {
-            console.log("Guestbook error:", err);
-          }
-        }
-        
-        // load otomatis saat halaman dibuka
-        document.addEventListener("DOMContentLoaded", loadGuestbook);
     </script>
     <!-- End Script RSVP -->
         <!-- end script -->
@@ -1045,6 +1005,7 @@
 
 
 </html>
+
 
 
 
