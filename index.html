@@ -425,12 +425,14 @@
            src="frame-bm.webp" alt="frame" style="width: 100%">
     </div>
 
-    <!-- Konten Box -->
+    <!-- Konten Box
     <div class="d-flex p-3 pb-4 justify-content-center flex-column align-items-center"
          style="height:100%;overflow:hidden;background-color:var(--inv-border);border-radius:1.5rem;">
-
+     -->
+    <div class="d-flex p-3 pb-4 justify-content-center flex-column align-items-center"
+         style="height:100%;overflow-y:auto;overflow-x:hidden;background-color:var(--inv-border);border-radius:1.5rem;">
       <!-- Foto / Cover (Opsional) -->
-      <div style="height:100%;width:100%;overflow:hidden;border-radius:1rem;"
+      <div style="max-height:35vh;width:100%;overflow:hidden;border-radius:1rem;"
            class="image-editable mb-4 mx-auto animate__animated animate__fadeInDown animate__slower">
         <img src="Foto (10).jpg"
              style="width: 100%;height: 100%;object-fit: cover;" />
@@ -457,7 +459,7 @@
       <!-- ❤️ Guestbook List Tampil di Sini -->
       <div id="guestList" 
            class="p-2 mt-3 w-100"
-           style="max-height:30vh;overflow-y:auto;"></div>
+           style="max-height:30vh;overflow-y:auto;overflow-x:hidden;"></div>
 
     </div>
   </div>
@@ -1117,6 +1119,7 @@ document.addEventListener("DOMContentLoaded", loadGuestbook);
 
 
 </html>
+
 
 
 
