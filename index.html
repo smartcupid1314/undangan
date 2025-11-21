@@ -433,6 +433,12 @@
   </div>
                                         </div>
                                     </li>
+                            
+<section id="guestbook" class="mt-5">
+  <h3 class="text-center mb-3">Ucapan & Konfirmasi</h3>
+  <div id="guestList" class="p-2"></div>
+</section>
+
 <!-- Invitation Live Streaming
                             <li class="satumomen_slide">
                                         <div class="container-mobile " style="background-image: url(bg.webp); ;">
@@ -985,13 +991,34 @@
     
       // ==== GANTI DENGAN URL SCRIPT GOOGLE KAMU ====
       const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIOBg6ZDOqpC9hgMYa6ML6A0-I9gwMZcEV-X6kaIDmmBOOG4feC8rTRW9MvoIglTmX/exec";
+      const WHATSAPP_OWNER = "6282245874883";
       // ==============================================
+    
+        document.getElementById("rsvpForm").addEventListener("submit", async function(e){
+          e.preventDefault();
+        
+          const form = e.target;
+          const data = {
+            nama: form.nama.value,
+            kehadiran: form.kehadiran.value,
+            jumlah: form.jumlah.value,
+            ucapan: form.ucapan.value
+          };
     
       try {
         await fetch(SCRIPT_URL, {
           method: "POST",
           body: JSON.stringify(data),
         });
+           // Kirim notifikasi WA otomatis
+            const pesan =
+              `RSVP Baru:%0A` +
+              `Nama: ${data.nama}%0A` +
+              `Kehadiran: ${data.kehadiran}%0A` +
+              `Jumlah Tamu: ${data.jumlah}%0A` +
+              `Ucapan: ${data.ucapan}`;
+        
+            window.open(`https://wa.me/${WHATSAPP_OWNER}?text=${pesan}`, "_blank");
         alert("RSVP berhasil dikirim!");
         closeModal(rsvpModal);
       } catch (err) {
@@ -1000,11 +1027,46 @@
     });
     </script>
     <!-- End Script RSVP -->
+
+    <script>
+            async function loadGuestbook() {
+              try {
+            const res = await fetch(SCRIPT_URL); 
+            const rows = await res.json();
+        
+            const wrapper = document.getElementById("guestList");
+            wrapper.innerHTML = "";
+        
+            rows.slice(1).reverse().forEach(item => {
+              const el = document.createElement("div");
+              el.className = "p-3 mb-3 rounded shadow-sm";
+              el.style.background = "#fafafa";
+        
+              el.innerHTML = `
+                <div class="fw-bold">${item["Nama"]} 
+                  <span class="text-muted" style="font-size:12px;">(${item["Kehadiran"]})</span>
+                </div>
+                <div>Jumlah tamu: ${item["Jumlah Tamu"]}</div>
+                <div class="mt-1 fst-italic">${item["Ucapan"] || ""}</div>
+              `;
+        
+              wrapper.appendChild(el);
+            });
+          } catch (err) {
+            console.log("Guestbook error:", err);
+          }
+        }
+        
+        // load otomatis saat halaman dibuka
+        document.addEventListener("DOMContentLoaded", loadGuestbook);
+</script>
+
         <!-- end script -->
 </body>
 
 
 </html>
+
 
 
 
