@@ -114,11 +114,20 @@
           overflow-y: auto;
         }
 
+        .guest-wrapper {
+          width: 100vw;                          /* paksa selebar layar */
+          margin-left: calc(50% - 50vw);         /* hack: keluar dari flex parent */
+          margin-right: calc(50% - 50vw);
+          overflow-x: auto !important;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+        }
+        
         /* horizontal guestbook */
         #guestList {
           /* border: 2px solid red; /* sementara untuk cek scroll*/
-          display: flex;
-          flex-direction: row;
+          display: flex !important;
+          flex-direction: row !important;
           gap: 12px;
           padding: 12px;
           overflow-x: auto;
@@ -466,7 +475,7 @@
          style="height:100%;overflow:hidden;background-color:var(--inv-border);border-radius:1.5rem;">
      -->
     <div class="d-flex p-3 pb-4 justify-content-center flex-column align-items-center"
-         style="height:100%;overflow-y:auto;overflow-x:auto;background-color:var(--inv-border);border-radius:1.5rem;">
+         style="height:100%;overflow-y:auto;overflow-x:visible;background-color:var(--inv-border);border-radius:1.5rem;">
       <!-- Foto / Cover (Opsional)
       <div style="max-height:35vh;width:100%;overflow:hidden;border-radius:1rem;"
            class="image-editable mb-4 mx-auto animate__animated animate__fadeInDown animate__slower">
@@ -493,10 +502,12 @@
       </button>
 
       <!-- ❤️ Guestbook List Tampil di Sini -->
-      <div id="guestList" 
-           class="p-2 mt-3 w-100"
-           style="max-height:30vh;overflow-y:auto;overflow-x:visible;"></div>
-
+      <div class="guest-wrapper">
+          <div id="guestList" 
+               class="p-2 mt-3 w-100"
+               style="max-height:30vh;overflow-y:auto;overflow-x:visible;">
+           </div>
+      </div>
     </div>
   </div>
 </li>
@@ -1319,6 +1330,7 @@ document.querySelectorAll("#rsvpForm input, #rsvpForm textarea, #rsvpForm select
 
 
 </html>
+
 
 
 
