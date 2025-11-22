@@ -113,15 +113,6 @@
           max-height: 90vh;
           overflow-y: auto;
         }
-
-        .guest-wrapper {
-          width: 100vw;                          /* paksa selebar layar */
-          margin-left: calc(50% - 50vw);         /* hack: keluar dari flex parent */
-          margin-right: calc(50% - 50vw);
-          overflow-x: auto !important;
-          overflow-y: hidden;
-          -webkit-overflow-scrolling: touch;
-        }
         
         /* horizontal guestbook */
         #guestList {
@@ -502,12 +493,10 @@
       </button>
 
       <!-- ❤️ Guestbook List Tampil di Sini -->
-      <div class="guest-wrapper">
           <div id="guestList" 
                class="p-2 mt-3 w-100"
                style="max-height:30vh;overflow-y:auto;overflow-x:visible;">
            </div>
-      </div>
     </div>
   </div>
 </li>
@@ -1330,6 +1319,7 @@ document.querySelectorAll("#rsvpForm input, #rsvpForm textarea, #rsvpForm select
 
 
 </html>
+
 
 
 
