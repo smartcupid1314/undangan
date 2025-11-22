@@ -1122,8 +1122,12 @@
       });
 
       showCustomAlert();          // alert cantik
-      closeModal(rsvpModal);      // tutup modal
-      loadGuestbook();            // refresh data
+      closeModal(rsvpModal);
+
+    setTimeout(() => {
+      loadGuestbook();
+      goToSlide(9);   // pindah ke slide guestbook (ubah angka sesuai slide kamu)
+      }, 400);
 
       // reset form
       form.reset();
@@ -1239,6 +1243,7 @@ document.querySelectorAll("#rsvpForm input, #rsvpForm textarea, #rsvpForm select
 
 
 </html>
+
 
 
 
