@@ -1087,69 +1087,97 @@
     </script>
 -->
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqCmgs3Yhi3GkWCZRwjkckLhYiMdC1kLMggRW0-BuQmIM1O_sBIzJ2Zazpe18Abfov/exec";
-    
-    // --- Submit RSVP ---
-    document.getElementById("rsvpForm").addEventListener("submit", async function(e){
-      e.preventDefault();
-    
-      const form = e.target;
-      const data = {
-        nama: form.nama.value,
-        kehadiran: form.kehadiran.value,
-        jumlah: form.jumlah.value,
-        ucapan: form.ucapan.value
-      };
-    
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqCmgs3Yhi3GkWCZRwjkckLhYiMdC1kLMggRW0-BuQmIM1O_sBIzJ2Zazpe18Abfov/exec";
+
+  let isSubmitting = false; // anti double submit
+
+  const form = document.getElementById("rsvpForm");
+  const submitBtn = form.querySelector("button[type='submit']");
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    // CEGAH SUBMIT 2×
+    if (isSubmitting) return;
+    isSubmitting = true;
+
+    // tombol jadi loading
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <span class="spinner-border spinner-border-sm me-2"></span>
+      Mengirim...
+    `;
+
+    const data = {
+      nama: form.nama.value,
+      kehadiran: form.kehadiran.value,
+      jumlah: form.jumlah.value,
+      ucapan: form.ucapan.value
+    };
+
     try {
       await fetch(SCRIPT_URL, {
         method: "POST",
         body: JSON.stringify(data),
       });
-    
-      showCustomAlert();
-      closeModal(rsvpModal);
-      loadGuestbook();
-    
+
+      showCustomAlert();          // alert cantik
+      closeModal(rsvpModal);      // tutup modal
+      loadGuestbook();            // refresh data
+
+      // reset form
+      form.reset();
+
     } catch (err) {
       alert("Gagal mengirim RSVP.");
+    } finally {
+      // kembalikan tombol
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "Kirim RSVP";
+
+      // reset lock 3 detik setelah submit
+      setTimeout(() => { isSubmitting = false; }, 3000);
     }
+  });
 
-    });
-    
-    // --- Load Guestbook ---
-    async function loadGuestbook() {
-  try {
-    const res = await fetch(SCRIPT_URL);
-    const rows = await res.json();
 
-    const container = document.getElementById("guestList");
-    container.innerHTML = "";
+  // ========================
+  // LOAD GUESTBOOK
+  // ========================
+  async function loadGuestbook() {
+    try {
+      const res = await fetch(SCRIPT_URL);
+      const rows = await res.json();
 
-    rows.slice(1).reverse().forEach(item => {
-      const box = document.createElement("div");
-      box.className = "p-3 mb-3 rounded shadow-sm";
-      box.style.background = "#fafafa";
+      const container = document.getElementById("guestList");
+      container.innerHTML = "";
 
-      box.innerHTML = `
-        <div class="fw-bold">${item["Nama"]} 
-          <span class="text-muted" style="font-size:12px;">(${item["Kehadiran"]} - ${item["Jumlah Tamu"]})</span>
-        </div>
-        <div class="mt-1 fst-italic">${item["Ucapan"] || ""}</div>
-      `;
+      rows.slice(1).reverse().forEach(item => {
+        const box = document.createElement("div");
+        box.className = "p-3 mb-3 rounded shadow-sm";
+        box.style.background = "#fafafa";
 
-      container.appendChild(box);
-    });
+        box.innerHTML = `
+          <div class="fw-bold">${item["Nama"]} 
+            <span class="text-muted" style="font-size:12px;">
+              (${item["Kehadiran"]} - ${item["Jumlah Tamu"]})
+            </span>
+          </div>
+          <div class="mt-1 fst-italic">${item["Ucapan"] || ""}</div>
+        `;
 
-    // AUTO SCROLL KE ATAS
-    container.scrollTop = 0;
+        container.appendChild(box);
+      });
 
-  } catch (err) {
-    console.error("Guestbook load error:", err);
+      container.scrollTop = 0; // auto scroll ke atas
+
+    } catch (err) {
+      console.error("Guestbook load error:", err);
+    }
   }
-}
-    
-    document.addEventListener("DOMContentLoaded", loadGuestbook);
+
+  document.addEventListener("DOMContentLoaded", loadGuestbook);
+
 </script>
     <!-- End Script RSVP -->
     
@@ -1211,6 +1239,7 @@ document.querySelectorAll("#rsvpForm input, #rsvpForm textarea, #rsvpForm select
 
 
 </html>
+
 
 
 
