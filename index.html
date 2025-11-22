@@ -68,6 +68,7 @@
     <link rel="stylesheet" href="themesv2-DZZF_N8v.css">
     <link rel="preload" as="style" href="bootstrap-vCaDZZbr.css" />
     <link rel="preload" as="style" href="themesv2-DZZF_N8v.css" />
+    
     <style>
         @import url('BrittanySignature.css');
         @import url('https://fonts.googleapis.com/css2?family=Arsenal:ital,wght@0,400;0,700;1,400;1,700&family=DM+Serif+Display:ital@0;1&display=swap');
@@ -112,6 +113,27 @@
           max-height: 90vh;
           overflow-y: auto;
         }
+
+        /* horizontal guestbook */
+        #guestList {
+          display: flex;
+          flex-direction: row;
+          gap: 12px;
+          padding: 12px;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch; /* momentum on iOS */
+          scrollbar-width: thin; /* Firefox */
+        }
+        
+        /* each item in guestlist */
+        #guestList .guest-item {
+          flex: 0 0 280px; /* lebar setiap kartu, ubah sesuai kebutuhan */
+          min-width: 220px;
+          max-width: 320px;
+          box-sizing: border-box;
+        }
+
     </style>
 </head>
 
@@ -1157,9 +1179,11 @@
       container.innerHTML = "";
 
       rows.slice(1).reverse().forEach(item => {
-        const box = document.createElement("div");
-        box.className = "p-3 mb-3 rounded shadow-sm";
-        box.style.background = "#fafafa";
+      const box = document.createElement("div");
+      box.className = "guest-item p-3 rounded shadow-sm";
+      box.style.background = "#fafafa";
+      box.style.marginRight = "12px";
+
 
         box.innerHTML = `
           <div class="fw-bold">${item["Nama"]} 
@@ -1184,24 +1208,75 @@
 
 </script>
     <!-- End Script RSVP -->
-    
+<!-- Old GuestList Script   
+    <script>
+        const guestList = document.getElementById("guestList");
+        
+        guestList.addEventListener("touchstart", function(e){
+          window.isScrollingGuestbook = true;
+          e.stopImmediatePropagation();
+        }, { passive: true });
+        
+        guestList.addEventListener("touchend", function(e){
+          setTimeout(() => window.isScrollingGuestbook = false, 50);
+        }, { passive: true });
+        
+        guestList.addEventListener("touchmove", function(e){
+          e.stopImmediatePropagation();
+        }, { passive: true });
+    </script>
+-->
+<!-- New GuestList Script -->
 <script>
-    const guestList = document.getElementById("guestList");
+    (function(){
+      const guestList = document.getElementById("guestList");
+      if (!guestList) return;
     
-    guestList.addEventListener("touchstart", function(e){
-      window.isScrollingGuestbook = true;
-      e.stopImmediatePropagation();
-    }, { passive: true });
+      let startX = 0, startY = 0, isMoving = false;
     
-    guestList.addEventListener("touchend", function(e){
-      setTimeout(() => window.isScrollingGuestbook = false, 50);
-    }, { passive: true });
+      guestList.addEventListener("touchstart", function(e){
+        if (e.touches && e.touches.length === 1) {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          isMoving = true;
+        }
+      }, { passive: true });
     
-    guestList.addEventListener("touchmove", function(e){
-      e.stopImmediatePropagation();
-    }, { passive: true });
+      guestList.addEventListener("touchmove", function(e){
+        if (!isMoving) return;
+        const touch = e.touches[0];
+        const dx = touch.clientX - startX;
+        const dy = touch.clientY - startY;
+    
+        // jika gerakan horizontal lebih besar, cegah bubbling ke parent
+        if (Math.abs(dx) > Math.abs(dy) + 5) {
+          // horizontal scroll inside guestList — stop parent handlers (slide)
+          e.stopPropagation();
+          // allow normal horizontal scroll; don't preventDefault so scroll works
+        } else {
+          // vertical movement — allow it to propagate so slide logic can run
+          // do nothing
+        }
+      }, { passive: true });
+    
+      guestList.addEventListener("touchend", function(){
+        isMoving = false;
+        startX = startY = 0;
+      }, { passive: true });
+    
+      // wheel handling for desktop: if horizontal wheel (shift-wheel or deltaX), stop propagation
+      guestList.addEventListener("wheel", function(e){
+        // if horizontal scroll (deltaX) is significant, prevent parent from acting
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          e.stopPropagation();
+        }
+        // if user scrolls vertically inside the horizontal area, let it bubble (so slide may change)
+      }, { passive: true });
+    
+    })();
 </script>
-
+<!-- End New GuestList Script -->
+    
 <!-- Ini membuat modal ikut naik ketika keyboard muncul -->
 <script>
     const modalContent = document.querySelector("#rsvpModal .modal-content");
@@ -1243,6 +1318,7 @@ document.querySelectorAll("#rsvpForm input, #rsvpForm textarea, #rsvpForm select
 
 
 </html>
+
 
 
 
