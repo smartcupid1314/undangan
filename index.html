@@ -1007,6 +1007,26 @@
         </div>
     </div>
     <!-- not support modal -->
+    
+    <!-- Alert Custom Sederhana (tanpa library) -->
+    <div id="alertSuccess" 
+         style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+         background:rgba(0,0,0,0.6); z-index:9999; 
+         align-items:center; justify-content:center;">
+      
+      <div style="background:white; padding:20px; border-radius:15px; 
+                  text-align:center; width:70%; 
+                  box-shadow:0 5px 20px rgba(0,0,0,0.3);">
+        
+        <h3 style="margin-bottom:10px; color:#333;">💕 Terima Kasih!</h3>
+        <p>RSVP Anda berhasil dikirim.</p>
+        <button onclick="closeCustomAlert()" 
+                style="margin-top:10px; background:#a87c54; color:white; 
+                       border:none; padding:10px 20px; border-radius:10px;">
+          Tutup
+        </button>
+      </div>
+    </div>
 
     <!-- start script -->
 
@@ -1081,19 +1101,20 @@
         ucapan: form.ucapan.value
       };
     
-      try {
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify(data),
-        });
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
     
-        alert("RSVP berhasil dikirim!");
-        closeModal(rsvpModal);
+      showCustomAlert();
+      closeModal(rsvpModal);
+      loadGuestbook();
     
-        loadGuestbook(); // refresh guestbook
-      } catch (err) {
-        alert("Gagal mengirim RSVP.");
-      }
+    } catch (err) {
+      alert("Gagal mengirim RSVP.");
+    }
+
     });
     
     // --- Load Guestbook ---
@@ -1174,11 +1195,23 @@ document.querySelectorAll("#rsvpForm input, #rsvpForm textarea, #rsvpForm select
   });
 </script>
 
+<!-- script custom alert -->
+<script>
+    function showCustomAlert() {
+      document.getElementById("alertSuccess").style.display = "flex";
+    }
+    
+    function closeCustomAlert() {
+      document.getElementById("alertSuccess").style.display = "none";
+    }
+</script>
+
         <!-- end script -->
 </body>
 
 
 </html>
+
 
 
 
